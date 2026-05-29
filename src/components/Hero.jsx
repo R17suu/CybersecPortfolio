@@ -42,7 +42,7 @@ export default function Hero() {
           {/* GitHub */}
           <a
             href="#"
-            className="w-12 h-12 rounded-full border-2 border-accent/40 flex items-center justify-center text-text-secondary hover:text-accent hover:border-accent hover:bg-accent/10 transition-all duration-300 hover:scale-110"
+            className=" scroll-fade-in w-12 h-12 rounded-full border-2 border-accent/40 flex items-center justify-center text-text-secondary hover:text-accent hover:border-accent hover:bg-accent/10 transition-all duration-300 hover:scale-110"
             aria-label="GitHub"
             title="GitHub"
           >
@@ -54,7 +54,7 @@ export default function Hero() {
           {/* LinkedIn */}
           <a
             href="#"
-            className="w-12 h-12 rounded-full border-2 border-accent/40 flex items-center justify-center text-text-secondary hover:text-accent hover:border-accent hover:bg-accent/10 transition-all duration-300 hover:scale-110"
+            className=" scroll-fade-in w-12 h-12 rounded-full border-2 border-accent/40 flex items-center justify-center text-text-secondary hover:text-accent hover:border-accent hover:bg-accent/10 transition-all duration-300 hover:scale-110"
             aria-label="LinkedIn"
             title="LinkedIn"
           >

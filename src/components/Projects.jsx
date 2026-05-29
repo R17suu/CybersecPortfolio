@@ -2,16 +2,16 @@ import { useState } from 'react';
 
 const projectPages = [
   [
-    { id: 1, title: 'Project 1', description: 'Coming soon...' },
-    { id: 2, title: 'Project 2', description: 'Coming soon...' },
-    { id: 3, title: 'Project 3', description: 'Coming soon...' },
-    { id: 4, title: 'Project 4', description: 'Coming soon...' },
+    { id: 1, title: 'Project 1', description: 'Coming soon...', image: 'https://via.placeholder.com/400x300?text=Project+1' },
+    { id: 2, title: 'Project 2', description: 'Coming soon...', image: 'https://via.placeholder.com/400x300?text=Project+2' },
+    { id: 3, title: 'Project 3', description: 'Coming soon...', image: 'https://via.placeholder.com/400x300?text=Project+3' },
+    { id: 4, title: 'Project 4', description: 'Coming soon...', image: 'https://via.placeholder.com/400x300?text=Project+4' },
   ],
   [
-    { id: 5, title: 'Project 5', description: 'Coming soon...' },
-    { id: 6, title: 'Project 6', description: 'Coming soon...' },
-    { id: 7, title: 'Project 7', description: 'Coming soon...' },
-    { id: 8, title: 'Project 8', description: 'Coming soon...' },
+    { id: 5, title: 'Project 5', description: 'Coming soon...', image: 'https://via.placeholder.com/400x300?text=Project+5' },
+    { id: 6, title: 'Project 6', description: 'Coming soon...', image: 'https://via.placeholder.com/400x300?text=Project+6' },
+    { id: 7, title: 'Project 7', description: 'Coming soon...', image: 'https://via.placeholder.com/400x300?text=Project+7' },
+    { id: 8, title: 'Project 8', description: 'Coming soon...', image: 'https://via.placeholder.com/400x300?text=Project+8' },
   ],
 ];
 
@@ -19,42 +19,47 @@ export default function Projects() {
   const [currentPage, setCurrentPage] = useState(0);
 
   return (
-    <section id="projects" className="py-24 px-6">
-      <div className="max-w-6xl mx-auto">
+    <section id="projects" className="py-24 px-6 justify-items-center" style={{ padding: '6rem 1.5rem', marginBottom: '10rem' }}>
+      <div className="max-w-6xl mx-auto w-full">
         {/* Section Title */}
-        <h2 className="font-heading text-4xl md:text-5xl font-bold tracking-wider text-center mb-16 scroll-fade-in">
-          <span className="text-accent">PROJ</span>
-          <span className="text-text-primary">ECTS</span>
+        <h2 className="font-heading text-4xl md:text-5xl font-bold tracking-wider text-center mb-16 scroll-fade-in" style={{marginBottom: '5rem' }}>
+          <span className="text-accent">PROJECTS</span>
+          {/* <span className="text-text-primary">ECTS</span> */}
         </h2>
 
         {/* Project Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10 scroll-fade-in">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10 scroll-fade-in" style={{marginBottom: '2rem' }}>
           {projectPages[currentPage].map((project) => (
             <div
               key={project.id}
-              className="card-hover rounded-lg aspect-[4/3] flex flex-col items-center justify-center p-6 cursor-pointer group"
+              className="card-hover rounded-lg aspect-[4/3] flex flex-col cursor-pointer group relative overflow-hidden"
               style={{ backgroundColor: '#1a1a1a', border: '1px solid #2a2a2a' }}
             >
-              {/* Placeholder icon */}
-              <svg
-                className="w-12 h-12 text-border group-hover:text-accent/50 transition-colors mb-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1}
-                  d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
-                />
-              </svg>
-              <h3 className="font-heading text-lg font-semibold text-text-secondary group-hover:text-text-primary transition-colors">
-                {project.title}
-              </h3>
-              <p className="text-text-secondary/60 text-sm mt-1">
-                {project.description}
-              </p>
+              {/* Project Image */}
+              <div className="flex-1 bg-gradient-to-br from-accent/20 to-accent/5 flex items-center justify-center overflow-hidden">
+                <img
+                  src={`https://via.placeholder.com/400x300?text=${encodeURIComponent(project.title)}`}
+                  alt={project.title}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                />  
+              </div>
+
+              {/* Project Title at Bottom */}
+              <div className="bg-black/50 px-4 py-3">
+                <h3 className="font-heading text-base font-semibold text-white truncate">
+                  {project.title}
+                </h3>
+              </div>
+
+              {/* Hover Overlay */}
+              <div className="absolute inset-0 bg-black/90 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6">
+                <h3 className="font-heading text-lg font-semibold text-white mb-2 text-center">
+                  {project.title}
+                </h3>
+                <p className="text-white/80 text-sm text-center">
+                  {project.description}
+                </p>
+              </div>
             </div>
           ))}
         </div>

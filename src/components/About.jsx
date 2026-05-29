@@ -1,9 +1,9 @@
 export default function About() {
   return (
-    <section id="about" className="py-24 px-6">
+    <section id="about" className="py-24 px-6 flex justify-center" style={{ padding: '6rem 1.5rem', marginBottom: '10rem' }}>
       <div className="max-w-6xl mx-auto">
         {/* Section Title */}
-        <h2 className="font-heading text-4xl md:text-5xl font-bold tracking-wider text-center mb-16 scroll-fade-in">
+        <h2 className="font-heading text-4xl md:text-5xl font-bold tracking-wider text-center mb-16 scroll-fade-in" style={{ marginBottom: '5rem' }}>
           <span className="text-accent">ABOUT</span>{' '}
           <span className="text-text-primary">ME</span>
         </h2>
@@ -15,7 +15,7 @@ export default function About() {
             <h3 className="font-heading text-2xl md:text-3xl font-semibold mb-2">
               Hi there, This is John Pruds Colot
             </h3>
-            <p className="text-accent text-sm mb-6 tracking-wide">
+            <p className="text-accent text-sm mb-6 tracking-wide" style={{ marginBottom: '1.5rem' }}>
               Information Technology Student &amp; Technical Project Manager
             </p>
             <p className="text-text-secondary leading-relaxed text-sm md:text-base">
@@ -33,21 +33,17 @@ export default function About() {
           </div>
 
           {/* Profile Image */}
-          <div className="flex-shrink-0 order-1 md:order-2">
+          <div className="flex-shrink-0 order-1 md:order-2 flex justify-center md:justify-center w-full md:w-auto">
             <div className="relative w-56 h-56 md:w-72 md:h-72">
               {/* Glow background */}
               <div className="absolute inset-0 rounded-full bg-gradient-to-br from-accent/30 via-accent/10 to-transparent blur-2xl"></div>
               {/* Image container */}
               <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-accent/30 profile-glow">
-                <div className="w-full h-full bg-gradient-to-br from-accent/40 via-card to-primary flex items-center justify-center">
-                  <svg
-                    className="w-24 h-24 text-accent/50"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                  </svg>
-                </div>
+                <img 
+                  src="/Profile.jpg" 
+                  alt="Profile" 
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
           </div>

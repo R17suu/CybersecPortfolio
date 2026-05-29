@@ -1,6 +1,6 @@
 export default function About() {
   return (
-    <section id="about" className="py-24 px-6 flex justify-center" style={{ padding: '6rem 1.5rem', marginBottom: '10rem' }}>
+    <section id="about" className="py-24 px-6 flex justify-center" style={{ padding: '6rem 1.5rem', marginBottom: '8rem' }}>
       <div className="max-w-6xl mx-auto">
         {/* Section Title */}
         <h2 className="font-heading text-4xl md:text-5xl font-bold tracking-wider text-center mb-16 scroll-fade-in" style={{ marginBottom: '5rem' }}>

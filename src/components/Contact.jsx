@@ -13,7 +13,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 px-6">
+    <section id="contact" className="py-24 px-6" style={{ padding: '3rem 1.5rem' }} >
       <div style={{ maxWidth: '42rem', margin: '0 auto' }}>
         <h2 className="font-heading text-4xl md:text-5xl font-bold tracking-wider text-center scroll-fade-in" style={{ marginBottom: '4rem' }}>
           <span className="text-accent">CONTACT</span>{' '}

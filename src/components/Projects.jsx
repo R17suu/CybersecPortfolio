@@ -19,7 +19,7 @@ export default function Projects() {
   const [currentPage, setCurrentPage] = useState(0);
 
   return (
-    <section id="projects" className="py-24 px-6 justify-items-center" style={{ padding: '6rem 1.5rem', marginBottom: '10rem' }}>
+    <section id="projects" className="py-24 px-6 justify-items-center" style={{ padding: '6rem 1.5rem', marginBottom: '5rem' }}>
       <div className="max-w-6xl mx-auto w-full">
         {/* Section Title */}
         <h2 className="font-heading text-4xl md:text-5xl font-bold tracking-wider text-center mb-16 scroll-fade-in" style={{marginBottom: '5rem' }}>

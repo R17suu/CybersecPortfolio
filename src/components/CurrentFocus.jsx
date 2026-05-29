@@ -27,9 +27,9 @@ const focusItems = [
 
 export default function CurrentFocus() {
   return (
-    <section id="learning-path" className="py-24 px-6">
+    <section id="current-focus" className="py-24 px-6" style={{ padding: '6rem 1.5rem', marginBottom: '5rem' }}>
       <div style={{ maxWidth: '72rem', margin: '0 auto' }}>
-        <h2 className="font-heading text-4xl md:text-5xl font-bold tracking-wider text-center mb-16 scroll-fade-in">
+        <h2 className="font-heading text-4xl md:text-5xl font-bold tracking-wider text-center mb-16 scroll-fade-in" style={{marginBottom: '5rem' }}>
           <span className="text-accent">CURRENT</span>{' '}
           <span className="text-text-primary">FOCUS</span>
         </h2>

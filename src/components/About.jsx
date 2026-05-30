@@ -1,6 +1,6 @@
 export default function About() {
   return (
-    <section id="about" className="py-24 px-6 flex justify-center" style={{ padding: '6rem 1.5rem', marginBottom: '8rem' }}>
+    <section id="about" className="py-24 px-6 flex justify-center" style={{ padding: '0rem 1.5rem 10rem', marginBottom: '5rem' }}>
       <div className="max-w-6xl mx-auto">
         {/* Section Title */}
         <h2 className="font-heading text-4xl md:text-5xl font-bold tracking-wider text-center mb-16 scroll-fade-in" style={{ marginBottom: '5rem' }}>
@@ -34,15 +34,15 @@ export default function About() {
 
           {/* Profile Image */}
           <div className="flex-shrink-0 order-1 md:order-2 flex justify-center md:justify-center w-full md:w-auto">
-            <div className="relative w-56 h-56 md:w-72 md:h-72">
+            <div className="relative w-56 h-56 md:w-72 md:h-72 group cursor-pointer">
               {/* Glow background */}
-              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-accent/30 via-accent/10 to-transparent blur-2xl"></div>
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-accent/30 via-accent/10 to-transparent blur-2xl transition-all duration-300 group-hover:from-accent/50 group-hover:via-accent/30"></div>
               {/* Image container */}
-              <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-accent/30 profile-glow">
+              <div className="relative w-full h-full rounded-2xl overflow-hidden border-2 border-accent/30 profile-glow transition-all duration-300 group-hover:scale-110 group-hover:border-accent/60 group-hover:shadow-2xl group-hover:shadow-accent/40">
                 <img 
                   src="/Profile.jpg" 
                   alt="Profile" 
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-all duration-300 group-hover:scale-110"
                 />
               </div>
             </div>

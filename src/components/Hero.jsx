@@ -1,4 +1,67 @@
+import { useState, useEffect, useRef } from 'react';
+
+function useTypewriter(phrases, typingSpeed = 100, erasingSpeed = 50, delayBetweenPhrases = 1500) {
+  const [displayedText, setDisplayedText] = useState('');
+  const [phraseIndex, setPhraseIndex] = useState(0);
+  const [isTyping, setIsTyping] = useState(true);
+  const stateRef = useRef({ displayedText: '', phraseIndex: 0, isTyping: true });
+
+  useEffect(() => {
+    stateRef.current = { displayedText, phraseIndex, isTyping };
+  }, [displayedText, phraseIndex, isTyping]);
+
+  useEffect(() => {
+    const currentPhrase = phrases[phraseIndex];
+    let timeout;
+
+    if (isTyping) {
+      // Typing mode
+      if (displayedText.length < currentPhrase.length) {
+        timeout = setTimeout(() => {
+          setDisplayedText(currentPhrase.slice(0, displayedText.length + 1));
+        }, typingSpeed);
+      } else {
+        // Finished typing, wait before erasing
+        timeout = setTimeout(() => {
+          setIsTyping(false);
+        }, delayBetweenPhrases);
+      }
+    } else {
+      // Erasing mode
+      if (displayedText.length > 0) {
+        timeout = setTimeout(() => {
+          setDisplayedText(displayedText.slice(0, -1));
+        }, erasingSpeed);
+      } else {
+        // Finished erasing, move to next phrase
+        setPhraseIndex((prev) => (prev + 1) % phrases.length);
+        setIsTyping(true);
+      }
+    }
+
+    return () => clearTimeout(timeout);
+  }, [displayedText, phraseIndex, isTyping, phrases, typingSpeed, erasingSpeed, delayBetweenPhrases]);
+
+  return { displayedText, phraseIndex };
+}
+
 export default function Hero() {
+  const rolesPhrases = [
+    'Full Stack Developer',
+    'Creative Problem Solver',
+    'Cybersecurity Enthusiast',
+    'Networking Enthusiast'
+  ];
+  
+  const { displayedText } = useTypewriter(rolesPhrases, 100, 50, 2000);
+
+  const handleScrollDown = () => {
+    const aboutSection = document.querySelector('#about');
+    if (aboutSection) {
+      aboutSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center px-4 md:px-6 py-20">
       {/* Gradient background */}
@@ -13,11 +76,19 @@ export default function Hero() {
           </h1>
         </div>
 
+        {/* Dynamic Role Description */}
+        <div className="mb-12 md:mb-16 scroll-fade-in text-center">
+          <p className="text-lg md:text-xl text-accent font-semibold tracking-wide h-8 md:h-10 flex items-center justify-center" style={{ marginBottom: '2rem' }}>
+            <span className="typewriter-text">{displayedText}</span>
+            <span className="ml-1 inline-block w-0.5 h-6 md:h-8 bg-accent animate-pulse"></span>
+          </p>
+        </div>
+
         {/* Download Buttons - Improved styling & spacing */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 md:mb-16 scroll-fade-in w-full" style={{ marginBottom: '2rem' }}>
           <a  
             href="#"
-            className="px-12 py-5 bg-accent text-primary rounded-lg font-semibold text-sm md:text-base tracking-wide hover:bg-[#00d4ff] transition-all duration-300 text-center hover:shadow-lg hover:shadow-accent/50 transform hover:-translate-y-1 cursor-pointer flex items-center justify-center gap-2 w-full sm:w-auto"
+            className="px-12 py-5 bg-accent text-primary rounded-lg font-semibold text-sm md:text-base tracking-wide transition-all duration-300 text-center cursor-pointer flex items-center justify-center gap-2 w-full sm:w-auto btn-hover-primary"
             style={{ padding: '0.5rem 1rem' }}
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -27,7 +98,7 @@ export default function Hero() {
           </a>
           <a
             href="#"
-            className="px-12 py-5 border-2 border-accent text-accent rounded-lg font-semibold text-sm md:text-base tracking-wide hover:bg-accent hover:text-primary transition-all duration-300 text-center hover:shadow-lg hover:shadow-accent/50 transform hover:-translate-y-1 cursor-pointer flex items-center justify-center gap-2 w-full sm:w-auto"
+            className="px-12 py-5 border-2 border-accent text-accent rounded-lg font-semibold text-sm md:text-base tracking-wide transition-all duration-300 text-center cursor-pointer flex items-center justify-center gap-2 w-full sm:w-auto btn-hover-secondary"
             style={{ padding: '0.5rem 1rem' }}
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -42,7 +113,7 @@ export default function Hero() {
           {/* GitHub */}
           <a
             href="#"
-            className=" scroll-fade-in w-12 h-12 rounded-full border-2 border-accent/40 flex items-center justify-center text-text-secondary hover:text-accent hover:border-accent hover:bg-accent/10 transition-all duration-300 hover:scale-110"
+            className="scroll-fade-in w-12 h-12 rounded-full border-2 border-accent/40 flex items-center justify-center text-text-secondary transition-all duration-300 social-icon-hover"
             aria-label="GitHub"
             title="GitHub"
           >
@@ -54,7 +125,7 @@ export default function Hero() {
           {/* LinkedIn */}
           <a
             href="#"
-            className=" scroll-fade-in w-12 h-12 rounded-full border-2 border-accent/40 flex items-center justify-center text-text-secondary hover:text-accent hover:border-accent hover:bg-accent/10 transition-all duration-300 hover:scale-110"
+            className="scroll-fade-in w-12 h-12 rounded-full border-2 border-accent/40 flex items-center justify-center text-text-secondary transition-all duration-300 social-icon-hover"
             aria-label="LinkedIn"
             title="LinkedIn"
           >
@@ -66,7 +137,10 @@ export default function Hero() {
       </div>
 
       {/* Scroll indicator - Better styling */}
-      <div className="absolute bottom-12 animate-bounce">
+      <div 
+        className="absolute bottom-12 animate-bounce cursor-pointer hover:scale-110 transition-transform"
+        onClick={handleScrollDown}
+      >
         <svg
           className="w-6 h-6 text-accent"
           fill="none"

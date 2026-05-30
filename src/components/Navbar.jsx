@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
 const middleLinks = [
+  { label: 'Home', href: '#home' },
   { label: 'About Me', href: '#about' },
   { label: 'Projects', href: '#projects' },
   { label: 'Learning Path', href: '#learning-path' },
@@ -66,14 +67,14 @@ export default function Navbar() {
         </div>
 
         {/* Navigation Section (Right) */}
-        <div className="hidden md:flex flex-1 bg-white rounded-l-[40px] items-center justify-between px-20 lg:px-40" style={{ paddingLeft: '20px', paddingRight: '20px' }}>
+        <div className="hidden md:flex flex-1 bg-[#1a1a1a] rounded-l-[40px] items-center justify-between px-20 lg:px-40 border-l border-accent/20" style={{ paddingLeft: '20px', paddingRight: '20px' }}>
           <div className="flex flex-row gap-8 lg:gap-10">
             {middleLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href)}
-                className={`text-[0.875rem] font-[700] tracking-[0.15em] uppercase transition-colors duration-300 ${activeSection === link.href ? 'text-[#00e5ff]' : 'text-black hover:text-[#666666]'
+                className={`text-[0.875rem] font-[700] tracking-[0.15em] uppercase transition-all duration-300 ${activeSection === link.href ? 'text-[#00e5ff] drop-shadow-[0_0_8px_rgba(0,229,255,0.4)]' : 'text-white hover:text-[#00e5ff] hover:drop-shadow-[0_0_6px_rgba(0,229,255,0.3)]'
                   }`}
               >
                 {link.label}
@@ -84,7 +85,7 @@ export default function Navbar() {
           <a
             href="#contact"
             onClick={(e) => handleNavClick(e, '#contact')}
-            className={`text-[0.875rem] font-[700] tracking-[0.15em] uppercase transition-colors duration-300 ${activeSection === '#contact' ? 'text-[#00e5ff]' : 'text-black hover:text-[#00e5ff]'
+            className={`text-[0.875rem] font-[700] tracking-[0.15em] uppercase transition-all duration-300 ${activeSection === '#contact' ? 'text-[#00e5ff] drop-shadow-[0_0_8px_rgba(0,229,255,0.4)]' : 'text-white hover:text-[#00e5ff] hover:drop-shadow-[0_0_6px_rgba(0,229,255,0.3)]'
               }`}
           >
             Contact Me
@@ -92,14 +93,14 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Menu Button */}
-        <div className="flex-1 flex justify-end items-center md:hidden pr-8 bg-white rounded-l-[40px]">
+        <div className="flex-1 flex justify-end items-center md:hidden pr-8 bg-[#1a1a1a] rounded-l-[40px] border-l border-accent/20">
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="flex flex-col gap-[0.375rem] bg-transparent border-none cursor-pointer p-2"
           >
-            <span className="w-[1.5rem] h-[0.125rem] bg-black block transition-all duration-300"></span>
-            <span className="w-[1.5rem] h-[0.125rem] bg-black block transition-all duration-300"></span>
-            <span className="w-[1.5rem] h-[0.125rem] bg-black block transition-all duration-300"></span>
+            <span className="w-[1.5rem] h-[0.125rem] bg-white block transition-all duration-300"></span>
+            <span className="w-[1.5rem] h-[0.125rem] bg-white block transition-all duration-300"></span>
+            <span className="w-[1.5rem] h-[0.125rem] bg-white block transition-all duration-300"></span>
           </button>
         </div>
       </div>

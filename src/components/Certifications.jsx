@@ -7,7 +7,7 @@ const certifications = Array.from({ length: 8 }, (_, i) => ({
 
 export default function Certifications() {
   return (
-    <section id="learning-path" className="py-24 px-6 justify-items-center" style={{ padding: '6rem 1.5rem', marginBottom: '5rem' }}>
+    <section id="learning-path" className="py-24 px-6 justify-items-center" style={{ padding: '0rem 1.5rem', marginBottom: '5rem' }}>
       <div className="max-w-6xl mx-auto w-full">
         {/* Section Title */}
         <h2 className="font-heading text-4xl md:text-5xl font-bold tracking-wider text-center mb-16 scroll-fade-in" style={{marginBottom: '5rem' }}>
@@ -16,7 +16,7 @@ export default function Certifications() {
         </h2>
 
         {/* Certification Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 scroll-fade-in" style={{marginBottom: '2rem', justifyItems: 'center' }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 scroll-fade-in" style={{marginBottom: '2rem', justifyItems: 'center' }}>
           {certifications.map((cert) => (
             <div
               key={cert.id}

@@ -1,4 +1,6 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import Preloader from './components/Preloader';
+import BackgroundAnimation from './components/BackgroundAnimation';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -51,10 +53,17 @@ function useScrollReveal() {
 }
 
 export default function App() {
+  const [isLoading, setIsLoading] = useState(true);
   useScrollReveal();
+
+  const handleLoadComplete = () => {
+    setIsLoading(false);
+  };
 
   return (
     <div className="min-h-screen bg-primary">
+      {isLoading && <Preloader onLoadComplete={handleLoadComplete} />}
+      <BackgroundAnimation />
       <Navbar />
       <Hero />
       <About />

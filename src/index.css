@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap');
+
+@import "tailwindcss";
+
 /* --- Timeline Styles for Current Focus --- */
 .timeline-dot {
   box-shadow: 0 0 0 0 rgba(0,229,255,0.0);
@@ -43,10 +47,6 @@
 }
 
 /* --- End Timeline Styles --- */
-/* Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap');
-
-@import "tailwindcss";
 
 /* Tailwind v4 Theme */
 @theme {

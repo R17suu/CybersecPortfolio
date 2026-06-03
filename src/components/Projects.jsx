@@ -118,7 +118,7 @@ Generated from Portfolio
   };
 
   return (
-    <section id="projects" className="py-24 px-6 justify-items-center" style={{ padding: '0rem 1.5rem', marginBottom: '5rem' }}>
+    <section id="projects" className="py-24 px-6 justify-items-center" style={{ padding: '0rem 1.5rem', marginBottom: '8rem' }}>
       <div className="max-w-6xl mx-auto w-full">
         {/* Section Title */}
         <h2 className="font-heading text-4xl md:text-5xl font-bold tracking-wider text-center mb-16 scroll-fade-in" style={{marginBottom: '5rem' }}>

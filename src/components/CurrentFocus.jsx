@@ -7,7 +7,7 @@ const focusItems = [
     label: 'ACADEMIC',
     title: 'Current Academic Focus',
     description:
-      'Deep diving into Advanced Cybersecurity Protocols and Enterprise Systems Integration.',
+      'Focusing on learning CCNA 3 with the pursuant to take certification',
   },
   {
     id: 2,
@@ -15,7 +15,7 @@ const focusItems = [
     label: 'PROFESSIONAL',
     title: 'Certifications',
     description:
-      'CompTIA Security+ (in progress), AWS Certified Solutions Architect Associate path.',
+      'Google Cybersecurity (in progress).',
   },
   {
     id: 3,
@@ -23,7 +23,7 @@ const focusItems = [
     label: 'HANDS-ON',
     title: 'Active Labs',
     description:
-      'Maintaining a homelab for penetration testing environments and active CI/CD pipelines.',
+      'Preparing a homelab for penetration testing environments and active CI/CD pipelines.',
   },
 ];
 
@@ -64,7 +64,7 @@ export default function CurrentFocus() {
     };
   }, []);
   return (
-    <section id="current-focus" className="py-24 px-6" style={{ padding: '6rem 1.5rem', marginBottom: '5rem' }}>
+    <section id="current-focus" className="py-24 px-6" style={{ padding: '6rem 1.5rem', marginBottom: '8rem' }}>
       <div style={{ maxWidth: '72rem', margin: '0 auto' }}>
         <h2 className="font-heading text-4xl md:text-5xl font-bold tracking-wider text-center mb-16 scroll-fade-in" style={{marginBottom: '5rem' }}>
           <span className="text-accent">CURRENT</span>{' '}

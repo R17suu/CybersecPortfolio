@@ -15,10 +15,10 @@ export default function Contact() {
   };
 
   const socialLinks = [
-    { name: 'LinkedIn', icon: FaLinkedin, url: 'https://linkedin.com' },
-    { name: 'GitHub', icon: FaGithub, url: 'https://github.com' },
-    { name: 'Twitter', icon: FaTwitter, url: 'https://twitter.com' },
-    { name: 'Email', icon: MdEmail, url: 'mailto:contact@example.com' },
+    // { name: 'LinkedIn', icon: FaLinkedin, url: 'https://linkedin.com' },
+    { name: 'GitHub', icon: FaGithub, url: 'https://github.com/R17suu' },
+    // { name: 'Twitter', icon: FaTwitter, url: 'https://twitter.com' },
+    { name: 'Email', icon: MdEmail, url: 'mailto:colotjohn66@gmail.com' },
   ];
 
   return (

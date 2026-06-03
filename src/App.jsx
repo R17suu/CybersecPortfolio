@@ -10,6 +10,10 @@ import Courses from './components/Courses';
 import CurrentFocus from './components/CurrentFocus';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import RecentCertifications from './components/RecentCertifications';
+import CaseStudy from './components/CaseStudy';
+import Blog from './components/Blog';
+import Badges from './components/Badges';
 
 function useScrollReveal() {
   const observerRef = useRef(null);
@@ -68,7 +72,11 @@ export default function App() {
       <Hero />
       <About />
       <Projects />
+      <CaseStudy />
+      <Blog />
       <Certifications />
+      <RecentCertifications />
+      <Badges />
       <Courses />
       <CurrentFocus />
       <Contact />

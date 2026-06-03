@@ -4,6 +4,8 @@ const middleLinks = [
   { label: 'Home', href: '#home' },
   { label: 'About Me', href: '#about' },
   { label: 'Projects', href: '#projects' },
+  { label: 'Case Studies', href: '#case-study' },
+  { label: 'Blog', href: '#blog' },
   { label: 'Learning Path', href: '#learning-path' },
 ];
 
@@ -21,20 +23,29 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    const sections = document.querySelectorAll('section[id]');
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection('#' + entry.target.id);
-          }
-        });
-      },
-      { rootMargin: '-20% 0px -60% 0px' }
-    );
+    // Robust fallback: query sections on scroll/resize and pick the one near the viewport center
+    const computeActiveSection = () => {
+      const sections = document.querySelectorAll('section[id]');
+      const threshold = window.innerHeight * 0.45; // ~middle of viewport
+      let found = '';
+      sections.forEach((sec) => {
+        const rect = sec.getBoundingClientRect();
+        if (rect.top <= threshold && rect.bottom > threshold) {
+          found = '#' + sec.id;
+        }
+      });
+      setActiveSection(found);
+    };
 
-    sections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
+    // run on load
+    computeActiveSection();
+    window.addEventListener('scroll', computeActiveSection, { passive: true });
+    window.addEventListener('resize', computeActiveSection);
+
+    return () => {
+      window.removeEventListener('scroll', computeActiveSection);
+      window.removeEventListener('resize', computeActiveSection);
+    };
   }, []);
 
   const handleNavClick = (e, href) => {

@@ -1,159 +1,188 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
+import { FaDownload, FaCertificate, FaProjectDiagram, FaGithub, FaEnvelope, FaChevronDown, FaTerminal } from 'react-icons/fa';
 
-function useTypewriter(phrases, typingSpeed = 100, erasingSpeed = 50, delayBetweenPhrases = 1500) {
+function useTypewriter(phrases, typingSpeed = 90, erasingSpeed = 45, delay = 1800) {
   const [displayedText, setDisplayedText] = useState('');
   const [phraseIndex, setPhraseIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(true);
-  const stateRef = useRef({ displayedText: '', phraseIndex: 0, isTyping: true });
 
   useEffect(() => {
-    stateRef.current = { displayedText, phraseIndex, isTyping };
-  }, [displayedText, phraseIndex, isTyping]);
-
-  useEffect(() => {
-    const currentPhrase = phrases[phraseIndex];
+    const current = phrases[phraseIndex];
     let timeout;
 
     if (isTyping) {
-      // Typing mode
-      if (displayedText.length < currentPhrase.length) {
+      if (displayedText.length < current.length) {
         timeout = setTimeout(() => {
-          setDisplayedText(currentPhrase.slice(0, displayedText.length + 1));
+          setDisplayedText(current.slice(0, displayedText.length + 1));
         }, typingSpeed);
       } else {
-        // Finished typing, wait before erasing
-        timeout = setTimeout(() => {
-          setIsTyping(false);
-        }, delayBetweenPhrases);
+        timeout = setTimeout(() => setIsTyping(false), delay);
       }
     } else {
-      // Erasing mode
       if (displayedText.length > 0) {
         timeout = setTimeout(() => {
           setDisplayedText(displayedText.slice(0, -1));
         }, erasingSpeed);
       } else {
-        // Finished erasing, move to next phrase
         setPhraseIndex((prev) => (prev + 1) % phrases.length);
         setIsTyping(true);
       }
     }
 
     return () => clearTimeout(timeout);
-  }, [displayedText, phraseIndex, isTyping, phrases, typingSpeed, erasingSpeed, delayBetweenPhrases]);
+  }, [displayedText, phraseIndex, isTyping, phrases, typingSpeed, erasingSpeed, delay]);
 
-  return { displayedText, phraseIndex };
+  return displayedText;
 }
 
 export default function Hero() {
-  const rolesPhrases = [
-    'Full Stack Developer',
-    'Creative Problem Solver',
-    'Cybersecurity Enthusiast',
-    'Networking Enthusiast'
+  const roles = [
+    'Cybersecurity & Threat Defense Enthusiast',
+    'Cisco CCNA & Network Infrastructure Specialist',
+    'Technical Project Manager & Student Leader',
+    'VLAN & Packet Tracer Topology Designer',
   ];
-  
-  const { displayedText } = useTypewriter(rolesPhrases, 100, 50, 2000);
 
-  const handleScrollDown = () => {
-    const aboutSection = document.querySelector('#about');
-    if (aboutSection) {
-      aboutSection.scrollIntoView({ behavior: 'smooth' });
-    }
+  const currentRole = useTypewriter(roles);
+
+  const scrollTo = (id) => {
+    const el = document.querySelector(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center px-4 md:px-6 py-20">
-      {/* Gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0d0d0d] via-[#1a1a1a] to-[#0d0d0d] pointer-events-none"></div>
+    <section id="home" className="relative min-h-[92vh] flex flex-col items-center justify-center pt-32 sm:pt-36 lg:pt-40 pb-20 sm:pb-28 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      
+      {/* Cyber Ambient Glows */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[650px] h-[380px] bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none"></div>
+      <div className="absolute top-1/3 left-1/4 w-[350px] h-[350px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none"></div>
 
-      <div className="relative z-10 max-w-3xl mx-auto w-full">
-        {/* Main Heading - Better spacing */}
-        <div className="mb-16 md:mb-20 lg:*:mb-24 scroll-fade-in" style={{ marginBottom: '2rem' }}>
-          <h1 className="font-heading text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-center leading-tight">
-            <span className="text-accent block mb-3">PJOHN&apos;S</span>
-            <span className="text-text-primary">PORTFOLIO</span>
-          </h1>
+      <div className="relative z-10 max-w-5xl mx-auto w-full text-center flex flex-col items-center gap-8 sm:gap-10">
+        
+        {/* System Status Pill */}
+        <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-slate-900/90 border border-cyan-500/30 text-xs font-mono text-cyan-300 shadow-[0_0_15px_rgba(0,229,255,0.15)] scroll-fade-in">
+          <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 pulse-online"></span>
+          <span className="font-semibold">SYSTEM_ONLINE</span>
+          <span className="text-slate-600">|</span>
+          <span className="text-slate-400">INFO_TECH &amp; CYBERSEC PRACTITIONER</span>
         </div>
 
-        {/* Dynamic Role Description */}
-        <div className="mb-12 md:mb-16 scroll-fade-in text-center">
-          <p className="text-lg md:text-xl text-accent font-semibold tracking-wide h-8 md:h-10 flex items-center justify-center" style={{ marginBottom: '2rem' }}>
-            <span className="typewriter-text">{displayedText}</span>
-            <span className="ml-1 inline-block w-0.5 h-6 md:h-8 bg-accent animate-pulse"></span>
+        {/* Main Headings */}
+        <div className="space-y-4 scroll-fade-in">
+          <p className="font-mono text-xs sm:text-sm tracking-[0.3em] uppercase text-cyan-400 font-semibold">
+            HELLO, MY NAME IS
+          </p>
+          <h1 className="font-heading font-black text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight text-white leading-tight">
+            JOHN PRUDS <span className="shimmer-text">COLOT</span>
+          </h1>
+          <p className="font-heading text-lg sm:text-2xl font-semibold text-slate-300 tracking-wide mt-2">
+            Known as <span className="text-cyan-400 font-mono font-bold">PJohn</span> &bull; IT Student &amp; Technical Project Manager
           </p>
         </div>
 
-        {/* Download Buttons - Improved styling & spacing */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 md:mb-16 scroll-fade-in w-full" style={{ marginBottom: '2rem' }}>
-          <a  
-            href="#"
-            className="px-12 py-5 bg-accent text-primary rounded-lg font-semibold text-sm md:text-base tracking-wide transition-all duration-300 text-center cursor-pointer flex items-center justify-center gap-2 w-full sm:w-auto btn-hover-primary"
-            style={{ padding: '0.5rem 1rem' }}
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 16v-4m0 0V8m0 4H8m4 0h4" />
-            </svg>
-            Download CV
-          </a>
-          <a
-            href="#"
-            className="px-12 py-5 border-2 border-accent text-accent rounded-lg font-semibold text-sm md:text-base tracking-wide transition-all duration-300 text-center cursor-pointer flex items-center justify-center gap-2 w-full sm:w-auto btn-hover-secondary"
-            style={{ padding: '0.5rem 1rem' }}
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 16v-4m0 0V8m0 4H8m4 0h4" />
-            </svg>
-            Download Resume
-          </a>
+        {/* Terminal Role Display */}
+        <div className="w-full max-w-2xl bg-[#0b101b]/95 border border-cyan-500/30 rounded-xl p-4 sm:p-5 backdrop-blur-md shadow-[0_0_30px_rgba(0,0,0,0.5)] scroll-fade-in">
+          <div className="flex items-center gap-2 mb-3 pb-2.5 border-b border-slate-800 text-[11px] font-mono text-slate-400">
+            <FaTerminal className="text-cyan-400 text-xs" />
+            <span>bash &mdash; current_specialization.sh</span>
+            <div className="ml-auto flex gap-1.5">
+              <span className="w-2.5 h-2.5 rounded-full bg-red-500/70"></span>
+              <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/70"></span>
+              <span className="w-2.5 h-2.5 rounded-full bg-green-500/70"></span>
+            </div>
+          </div>
+          <div className="flex items-center justify-center font-mono text-sm sm:text-lg text-cyan-300 font-semibold min-h-[36px] py-1">
+            <span className="text-slate-500 mr-2">$</span>
+            <span>{currentRole}</span>
+            <span className="w-2 h-5 bg-cyan-400 ml-1 inline-block animate-pulse"></span>
+          </div>
         </div>
 
-        {/* Social Icons - Better sizing & spacing */}
-        <div className="flex gap-6 justify-center items-center">
-          {/* GitHub */}
+        {/* Short Bio Tagline */}
+        <p className="max-w-2xl text-slate-300 text-sm sm:text-base leading-relaxed scroll-fade-in">
+          Bridging enterprise network infrastructure, Cisco routing &amp; switching, and cybersecurity defense with proven leadership in organizing collaborative technical teams.
+        </p>
+
+        {/* Action Buttons */}
+        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-5 w-full sm:w-auto scroll-fade-in">
+          <a
+            href="/Colot_John-Pruds_Resume.pdf"
+            download="John_Pruds_Colot_Resume.pdf"
+            className="flex-1 sm:flex-initial flex items-center justify-center gap-2.5 px-7 py-4 rounded-xl bg-gradient-to-r from-cyan-400 to-cyan-500 text-slate-950 font-mono font-bold text-xs sm:text-sm tracking-wider uppercase hover:shadow-[0_0_25px_rgba(0,229,255,0.6)] transition-all duration-300 hover:-translate-y-1"
+          >
+            <FaDownload />
+            <span>Download Resume</span>
+          </a>
+
+          <button
+            onClick={() => scrollTo('#certifications')}
+            className="flex-1 sm:flex-initial flex items-center justify-center gap-2.5 px-7 py-4 rounded-xl bg-slate-900/80 border border-cyan-500/40 text-cyan-300 font-mono font-semibold text-xs sm:text-sm tracking-wider uppercase hover:bg-cyan-950/40 hover:border-cyan-400 hover:shadow-[0_0_20px_rgba(0,229,255,0.25)] transition-all duration-300 hover:-translate-y-1 cursor-pointer"
+          >
+            <FaCertificate className="text-cyan-400" />
+            <span>Certifications (18)</span>
+          </button>
+
+          <button
+            onClick={() => scrollTo('#projects')}
+            className="flex-1 sm:flex-initial flex items-center justify-center gap-2.5 px-7 py-4 rounded-xl bg-slate-900/60 border border-slate-700 text-slate-300 font-mono font-semibold text-xs sm:text-sm tracking-wider uppercase hover:border-slate-500 hover:text-white transition-all duration-300 hover:-translate-y-1 cursor-pointer"
+          >
+            <FaProjectDiagram />
+            <span>View Projects</span>
+          </button>
+        </div>
+
+        {/* Telemetry Stats Strip */}
+        <div className="w-full grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 max-w-4xl scroll-fade-in">
+          <div className="cyber-card rounded-2xl p-5 sm:p-6 text-center">
+            <div className="font-heading font-black text-2xl sm:text-4xl text-cyan-400">18+</div>
+            <div className="font-mono text-[11px] text-slate-400 uppercase tracking-wider mt-2 font-medium">Credentials &amp; Certs</div>
+          </div>
+          <div className="cyber-card rounded-2xl p-5 sm:p-6 text-center">
+            <div className="font-heading font-black text-2xl sm:text-4xl text-blue-400">CCNA</div>
+            <div className="font-mono text-[11px] text-slate-400 uppercase tracking-wider mt-2 font-medium">Cisco NetAcad Track</div>
+          </div>
+          <div className="cyber-card rounded-2xl p-5 sm:p-6 text-center">
+            <div className="font-heading font-black text-2xl sm:text-4xl text-emerald-400">100%</div>
+            <div className="font-mono text-[11px] text-slate-400 uppercase tracking-wider mt-2 font-medium">Hands-On Labs</div>
+          </div>
+          <div className="cyber-card rounded-2xl p-5 sm:p-6 text-center">
+            <div className="font-heading font-black text-2xl sm:text-4xl text-purple-400">NIST</div>
+            <div className="font-mono text-[11px] text-slate-400 uppercase tracking-wider mt-2 font-medium">Sec Framework &amp; Audits</div>
+          </div>
+        </div>
+
+        {/* Social Quick Bar */}
+        <div className="flex items-center gap-5 scroll-fade-in">
           <a
             href="https://github.com/R17suu"
-            className="scroll-fade-in w-12 h-12 rounded-full border-2 border-accent/40 flex items-center justify-center text-text-secondary transition-all duration-300 social-icon-hover"
-            aria-label="GitHub"
-            title="GitHub"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-12 h-12 rounded-xl bg-[#0f1623] border border-cyan-500/30 flex items-center justify-center text-slate-300 hover:text-cyan-400 hover:border-cyan-400 hover:shadow-[0_0_15px_rgba(0,229,255,0.3)] transition-all duration-300"
+            title="GitHub Profile"
+            aria-label="GitHub Profile"
           >
-            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-            </svg>
+            <FaGithub size={22} />
           </a>
-
-          {/* LinkedIn */}
-          {/* <a
-            href="#"
-            className="scroll-fade-in w-12 h-12 rounded-full border-2 border-accent/40 flex items-center justify-center text-text-secondary transition-all duration-300 social-icon-hover"
-            aria-label="LinkedIn"
-            title="LinkedIn"
+          <a
+            href="mailto:colotjohn66@gmail.com"
+            className="w-12 h-12 rounded-xl bg-[#0f1623] border border-cyan-500/30 flex items-center justify-center text-slate-300 hover:text-cyan-400 hover:border-cyan-400 hover:shadow-[0_0_15px_rgba(0,229,255,0.3)] transition-all duration-300"
+            title="Email Directly"
+            aria-label="Email John Pruds Colot"
           >
-            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-            </svg>
-          </a> */}
+            <FaEnvelope size={20} />
+          </a>
         </div>
-      </div>
 
-      {/* Scroll indicator - Better styling */}
-      <div 
-        className="absolute bottom-12 animate-bounce cursor-pointer hover:scale-110 transition-transform"
-        onClick={handleScrollDown}
-      >
-        <svg
-          className="w-6 h-6 text-accent"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
+        {/* Scroll Indicator */}
+        <button
+          onClick={() => scrollTo('#about')}
+          className="text-cyan-400/80 hover:text-cyan-300 transition-colors animate-bounce flex flex-col items-center gap-1.5 cursor-pointer py-2"
+          aria-label="Scroll down to About section"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M19 14l-7 7m0 0l-7-7m7 7V3"
-          />
-        </svg>
+          <span className="font-mono text-[10px] tracking-widest uppercase">Explore</span>
+          <FaChevronDown size={14} />
+        </button>
+
       </div>
     </section>
   );

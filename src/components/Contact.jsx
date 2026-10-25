@@ -1,180 +1,256 @@
 import { useState } from 'react';
-import { FaLinkedin, FaGithub, FaTwitter } from 'react-icons/fa';
-import { MdEmail } from 'react-icons/md';
+import { 
+  FaEnvelope, 
+  FaGithub, 
+  FaMapMarkerAlt, 
+  FaPaperPlane, 
+  FaCopy, 
+  FaCheck, 
+  FaTerminal 
+} from 'react-icons/fa';
 
 export default function Contact() {
-  const [form, setForm] = useState({ email: '', message: '' });
-  const [sent, setSent] = useState(false);
+  const [form, setForm] = useState({ name: '', email: '', subject: 'Security Role / Internship', message: '' });
+  const [copied, setCopied] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  const copyEmail = () => {
+    navigator.clipboard.writeText('2301104393@student.buksu.edu.ph');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!form.email || !form.message) return;
-    setSent(true);
-    setForm({ email: '', message: '' });
-    setTimeout(() => setSent(false), 3000);
+
+    const subject = encodeURIComponent(`[Portfolio Inquiry] ${form.subject} from ${form.name || form.email}`);
+    const body = encodeURIComponent(`Sender Name: ${form.name}\nSender Email: ${form.email}\nTopic: ${form.subject}\n\nMessage:\n${form.message}`);
+    
+    window.location.href = `mailto:2301104393@student.buksu.edu.ph?subject=${subject}&body=${body}`;
+
+    setSubmitted(true);
+    setForm({ name: '', email: '', subject: 'Security Role / Internship', message: '' });
+    setTimeout(() => setSubmitted(false), 6000);
   };
 
-  const socialLinks = [
-    // { name: 'LinkedIn', icon: FaLinkedin, url: 'https://linkedin.com' },
-    { name: 'GitHub', icon: FaGithub, url: 'https://github.com/R17suu' },
-    // { name: 'Twitter', icon: FaTwitter, url: 'https://twitter.com' },
-    { name: 'Email', icon: MdEmail, url: 'mailto:colotjohn66@gmail.com' },
-  ];
-
   return (
-    <section id="contact" className="py-24 px-6" style={{ padding: '0rem 1.5rem 3.5rem' }} >
-      <div style={{ maxWidth: '72rem', margin: '0 auto' }}>
-        <h2 className="font-heading text-4xl md:text-5xl font-bold tracking-wider text-center scroll-fade-in" style={{ marginBottom: '3rem' }}>
-          <span className="text-accent">CONTACT</span>{' '}
-          <span className="text-text-primary">ME</span>
-        </h2>
+    <section id="contact" className="py-12 sm:py-20 px-4 sm:px-6 lg:px-8 relative flex flex-col items-center">
+      <div className="max-w-6xl mx-auto w-full">
+        
+        {/* Section Header */}
+        <div className="text-center mb-18 sm:mb-24 scroll-fade-in">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-400 font-mono text-xs uppercase tracking-widest mb-4">
+            <span>[ SECTION: 05 // TRANSMISSION ]</span>
+          </div>
+          <h2 className="font-heading font-extrabold text-3xl sm:text-5xl text-white tracking-tight">
+            GET IN <span className="text-cyan-400">TOUCH</span>
+          </h2>
+          <p className="max-w-xl mx-auto text-slate-300 text-sm sm:text-base mt-4 leading-relaxed">
+            Looking for an IT or cybersecurity specialist with verified networking competencies? Let&apos;s connect.
+          </p>
+          <div className="w-20 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 mx-auto mt-5 rounded-full"></div>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 scroll-fade-in">
-          {/* Left Side - Social Links */}
-          <div className="space-y-6">
-            <h3 className="text-2xl font-bold text-accent mb-8" style={{ marginBottom: '2rem' }}>
-              Connect With Me
-            </h3>
-            <div className="flex flex-col gap-4">
-              {socialLinks.map((social, index) => (
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start scroll-fade-in">
+          
+          {/* Left Column: Direct Channels & Status */}
+          <div className="lg:col-span-5 space-y-8">
+            
+            <div className="cyber-card rounded-2xl p-8 sm:p-10 space-y-8">
+              <div>
+                <h3 className="font-heading font-extrabold text-2xl text-white mb-3">
+                  Communication Terminal
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                  Available for technical internships, entry-level cybersecurity operations, and network infrastructure roles.
+                </p>
+              </div>
+
+              {/* Status Badge */}
+              <div className="p-5 rounded-xl bg-slate-900/90 border border-emerald-500/30 flex items-center gap-4">
+                <span className="w-3.5 h-3.5 rounded-full bg-emerald-400 pulse-online flex-shrink-0"></span>
+                <div>
+                  <div className="text-xs font-mono font-bold text-emerald-400 uppercase tracking-wide">
+                    STATUS: READY FOR ENGAGEMENT
+                  </div>
+                  <div className="text-xs text-slate-400 mt-0.5">
+                    Open to remote or on-site opportunities
+                  </div>
+                </div>
+              </div>
+
+              {/* Contact Methods List */}
+              <div className="space-y-4 font-mono text-xs">
+                
+                {/* Email Direct */}
+                <div className="p-4.5 rounded-xl bg-slate-900 border border-cyan-500/20 flex items-center justify-between gap-3 group">
+                  <div className="flex items-center gap-3.5 overflow-hidden">
+                    <div className="w-10 h-10 rounded-lg bg-cyan-950 flex items-center justify-center text-cyan-400 flex-shrink-0">
+                      <FaEnvelope size={18} />
+                    </div>
+                    <div className="overflow-hidden">
+                      <div className="text-[10px] text-slate-400 uppercase tracking-wider">Primary Email</div>
+                      <a 
+                        href="mailto:colotjohn66@gmail.com" 
+                        className="text-white hover:text-cyan-300 font-semibold truncate block transition-colors mt-0.5"
+                      >
+                        colotjohn66@gmail.com
+                      </a>
+                    </div>
+                  </div>
+                  <button
+                    onClick={copyEmail}
+                    className="p-2.5 rounded-lg bg-slate-800 hover:bg-cyan-950 text-slate-300 hover:text-cyan-400 transition-colors flex-shrink-0 cursor-pointer"
+                    title="Copy email to clipboard"
+                    aria-label="Copy email"
+                  >
+                    {copied ? <FaCheck className="text-emerald-400" /> : <FaCopy />}
+                  </button>
+                </div>
+
+                {/* GitHub */}
                 <a
-                  key={index}
-                  href={social.url}
+                  href="https://github.com/R17suu"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="social-link-contact flex items-center gap-3 px-6 py-3 rounded-lg border-2 border-accent hover:bg-accent/10 transition-all duration-300 hover:shadow-lg hover:shadow-accent/40 flex-1"
-                  style={{
-                    textDecoration: 'none',
-                    cursor: 'pointer',
-                    borderColor: '#00e5ff',
-                    display: 'inline-flex',
-                    padding: '0.75rem 1.5rem',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = 'rgba(0, 229, 255, 0.1)';
-                    e.currentTarget.style.transform = 'translateY(-2px)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = 'transparent';
-                    e.currentTarget.style.transform = 'translateY(0)';
-                  }}
+                  className="p-4.5 rounded-xl bg-slate-900 border border-cyan-500/20 flex items-center gap-3.5 hover:border-cyan-400/50 hover:bg-slate-850 transition-all text-white group"
                 >
-                  <social.icon size={24} color="#00e5ff" />
-                  <span style={{ color: '#00e5ff', fontWeight: 600, fontSize: '0.95rem' }}>{social.name}</span>
+                  <div className="w-10 h-10 rounded-lg bg-cyan-950 flex items-center justify-center text-cyan-400 flex-shrink-0">
+                    <FaGithub size={20} />
+                  </div>
+                  <div>
+                    <div className="text-[10px] text-slate-400 uppercase tracking-wider">GitHub Repository</div>
+                    <div className="font-semibold text-slate-200 group-hover:text-cyan-300 transition-colors mt-0.5">
+                      github.com/R17suu
+                    </div>
+                  </div>
                 </a>
-              ))}
+
+                {/* Location */}
+                <div className="p-4.5 rounded-xl bg-slate-900 border border-slate-800 flex items-center gap-3.5">
+                  <div className="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center text-slate-400 flex-shrink-0">
+                    <FaMapMarkerAlt size={18} />
+                  </div>
+                  <div>
+                    <div className="text-[10px] text-slate-400 uppercase tracking-wider">Base Location</div>
+                    <div className="font-semibold text-slate-200 mt-0.5">
+                      Malaybalay City, Bukidnon, Philippines
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          {/* Right Column: Interactive Form */}
+          <div className="lg:col-span-7">
+            <div className="cyber-card rounded-2xl p-8 sm:p-10">
+              
+              <div className="flex items-center gap-2.5 mb-8 pb-5 border-b border-slate-800">
+                <FaTerminal className="text-cyan-400 text-sm" />
+                <span className="font-mono text-xs uppercase tracking-wider text-cyan-400 font-bold">
+                  TRANSMIT DIRECT MESSAGE
+                </span>
+              </div>
+
+              {submitted && (
+                <div className="mb-8 p-5 rounded-xl bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 font-mono text-xs flex items-center gap-3.5 animate-modal">
+                  <FaCheck className="text-emerald-400 text-lg flex-shrink-0" />
+                  <div>
+                    <div className="font-bold">TRANSMISSION DISPATCHED</div>
+                    <div className="text-slate-300 text-xs mt-1">
+                      Your default mail client has opened. Thank you for reaching out!
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <form onSubmit={handleSubmit} className="space-y-6">
+                
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  {/* Name */}
+                  <div>
+                    <label className="block text-xs font-mono uppercase text-slate-400 mb-2.5 font-medium">
+                      Your Name / Organization
+                    </label>
+                    <input
+                      type="text"
+                      value={form.name}
+                      onChange={(e) => setForm({ ...form, name: e.target.value })}
+                      placeholder="Jane Doe / Sec Corp"
+                      required
+                      className="w-full bg-[#07090e] border border-cyan-500/20 focus:border-cyan-400 rounded-xl px-4.5 py-3.5 text-xs font-mono text-white placeholder-slate-600 outline-none transition-colors"
+                    />
+                  </div>
+
+                  {/* Email */}
+                  <div>
+                    <label className="block text-xs font-mono uppercase text-slate-400 mb-2.5 font-medium">
+                      Your Contact Email
+                    </label>
+                    <input
+                      type="email"
+                      value={form.email}
+                      onChange={(e) => setForm({ ...form, email: e.target.value })}
+                      placeholder="jane@example.com"
+                      required
+                      className="w-full bg-[#07090e] border border-cyan-500/20 focus:border-cyan-400 rounded-xl px-4.5 py-3.5 text-xs font-mono text-white placeholder-slate-600 outline-none transition-colors"
+                    />
+                  </div>
+                </div>
+
+                {/* Subject Selector */}
+                <div>
+                  <label className="block text-xs font-mono uppercase text-slate-400 mb-2.5 font-medium">
+                    Inquiry Classification
+                  </label>
+                  <select
+                    value={form.subject}
+                    onChange={(e) => setForm({ ...form, subject: e.target.value })}
+                    className="w-full bg-[#07090e] border border-cyan-500/20 focus:border-cyan-400 rounded-xl px-4.5 py-3.5 text-xs font-mono text-white outline-none transition-colors cursor-pointer"
+                  >
+                    <option value="Security Role / Internship">Internship or Junior Security Role</option>
+                    <option value="Network Infrastructure Project">Network Infrastructure &amp; Cisco Consulting</option>
+                    <option value="Technical Project Management">Technical Project Management Collaboration</option>
+                    <option value="General Inquiry">General Technical Inquiry</option>
+                  </select>
+                </div>
+
+                {/* Message */}
+                <div>
+                  <label className="block text-xs font-mono uppercase text-slate-400 mb-2.5 font-medium">
+                    Message Payload
+                  </label>
+                  <textarea
+                    rows={5}
+                    value={form.message}
+                    onChange={(e) => setForm({ ...form, message: e.target.value })}
+                    placeholder="Hello John, I came across your portfolio and wanted to discuss an opportunity..."
+                    required
+                    className="w-full bg-[#07090e] border border-cyan-500/20 focus:border-cyan-400 rounded-xl px-4.5 py-3.5 text-xs font-mono text-white placeholder-slate-600 outline-none transition-colors resize-none leading-relaxed"
+                  ></textarea>
+                </div>
+
+                {/* Submit Button */}
+                <button
+                  type="submit"
+                  className="w-full py-4.5 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-600 text-slate-950 font-mono font-bold text-xs uppercase tracking-widest hover:shadow-[0_0_30px_rgba(0,229,255,0.5)] transition-all duration-300 flex items-center justify-center gap-2.5 hover:-translate-y-0.5 cursor-pointer mt-2"
+                >
+                  <FaPaperPlane />
+                  <span>Transmit Message</span>
+                </button>
+
+              </form>
+
             </div>
           </div>
 
-          {/* Right Side - Form */}
-          <div
-            className="md:col-span-2"
-            style={{
-              backgroundColor: '#1a1a1a',
-              border: '1px solid #2a2a2a',
-              borderRadius: '12px',
-              padding: '2rem',
-            }}
-          >
-            <h3 className="text-2xl font-bold text-accent mb-8" style={{ marginBottom: '2rem' }}>
-              Send Me a Message
-            </h3>
-            <form onSubmit={handleSubmit}>
-            <div style={{ marginBottom: '1.5rem' }}>
-              <label
-                htmlFor="email"
-                className="text-sm text-text-secondary"
-                style={{ display: 'block', marginBottom: '0.5rem' }}
-              >
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                value={form.email}
-                onChange={(e) => setForm({ ...form, email: e.target.value })}
-                className="text-text-primary text-sm"
-                style={{
-                  width: '100%',
-                  backgroundColor: '#0d0d0d',
-                  border: '1px solid #2a2a2a',
-                  borderRadius: '8px',
-                  padding: '0.75rem 1rem',
-                  outline: 'none',
-                  color: '#ffffff',
-                }}
-                onFocus={(e) => (e.target.style.borderColor = '#00e5ff')}
-                onBlur={(e) => (e.target.style.borderColor = '#2a2a2a')}
-                placeholder="your@email.com"
-                required
-              />
-            </div>
-            <div style={{ marginBottom: '1.5rem' }}>
-              <label
-                htmlFor="message"
-                className="text-sm text-text-secondary"
-                style={{ display: 'block', marginBottom: '0.5rem' }}
-              >
-                Message
-              </label>
-              <textarea
-                id="message"
-                value={form.message}
-                onChange={(e) => setForm({ ...form, message: e.target.value })}
-                rows={6}
-                className="text-text-primary text-sm"
-                style={{
-                  width: '100%',
-                  backgroundColor: '#0d0d0d',
-                  border: '1px solid #2a2a2a',
-                  borderRadius: '8px',
-                  padding: '0.75rem 1rem',
-                  outline: 'none',
-                  resize: 'none',
-                  color: '#ffffff',
-                }}
-                onFocus={(e) => (e.target.style.borderColor = '#00e5ff')}
-                onBlur={(e) => (e.target.style.borderColor = '#2a2a2a')}
-                placeholder="Write your message..."
-                required
-              />
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              <button
-                type="submit"
-                className="btn-glow"
-                style={{
-                  padding: '0.75rem 2rem',
-                  border: '2px solid #00e5ff',
-                  color: '#00e5ff',
-                  borderRadius: '6px',
-                  fontWeight: 500,
-                  fontSize: '0.875rem',
-                  letterSpacing: '0.05em',
-                  backgroundColor: 'transparent',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s',
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.backgroundColor = '#00e5ff';
-                  e.target.style.color = '#0d0d0d';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.backgroundColor = 'transparent';
-                  e.target.style.color = '#00e5ff';
-                }}
-              >
-                Send Message
-              </button>
-              {sent && (
-                <span className="text-accent text-sm animate-pulse">
-                  ✓ Message sent successfully!
-                </span>
-              )}
-            </div>
-          </form>
-          </div>
         </div>
+
       </div>
     </section>
   );

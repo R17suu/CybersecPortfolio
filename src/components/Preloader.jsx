@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import '../styles/Preloader.css';
 
 const Preloader = ({ onLoadComplete }) => {
@@ -7,10 +7,18 @@ const Preloader = ({ onLoadComplete }) => {
   const [isExiting, setIsExiting] = useState(false);
 
   const terminalLines = [
-    '> INITIALIZING SECURE CONNECTION...',
-    '> LOADING ASSETS...',
-    '> ACCESS GRANTED'
+    '> INITIALIZING SECURE ENVIRONMENT...',
+    '> VERIFYING NETWORK & SECURITY CREDENTIALS [18/18]...',
+    '> ACCESS GRANTED // WELCOME TO PJOHN PORTFOLIO'
   ];
+
+  const finish = () => {
+    setIsExiting(true);
+    setTimeout(() => {
+      setShowTerminal(false);
+      onLoadComplete();
+    }, 400);
+  };
 
   // Typing animation
   useEffect(() => {
@@ -23,37 +31,34 @@ const Preloader = ({ onLoadComplete }) => {
         const fullLine = terminalLines[lineIndex];
         
         if (charIndex < fullLine.length) {
-          // Still typing current line
           charIndex++;
           currentLines[lineIndex] = fullLine.slice(0, charIndex);
           setLines([...currentLines]);
         } else {
-          // Line complete, move to next
           currentLines[lineIndex] = fullLine;
           lineIndex++;
           charIndex = 0;
           setLines([...currentLines]);
         }
       } else {
-        // All lines complete
         clearInterval(typeInterval);
       }
-    }, 50);
+    }, 20);
 
     return () => clearInterval(typeInterval);
   }, []);
 
-  // Trigger exit animation after all lines are typed
+  // Exit trigger
   useEffect(() => {
     if (lines.length === terminalLines.length) {
       const exitTimer = setTimeout(() => {
         setIsExiting(true);
-      }, 1200);
+      }, 500);
 
       const completeTimer = setTimeout(() => {
         setShowTerminal(false);
         onLoadComplete();
-      }, 2300);
+      }, 950);
 
       return () => {
         clearTimeout(exitTimer);
@@ -68,17 +73,26 @@ const Preloader = ({ onLoadComplete }) => {
 
   return (
     <div className={`preloader-overlay ${isExiting ? 'preloader-exit' : ''}`}>
-      <div className="preloader-terminal">
-        <div className="terminal-header">
-          <div className="terminal-button red"></div>
-          <div className="terminal-button yellow"></div>
-          <div className="terminal-button green"></div>
+      <div className="preloader-terminal relative">
+        <div className="terminal-header flex justify-between items-center">
+          <div className="flex gap-2">
+            <div className="terminal-button red"></div>
+            <div className="terminal-button yellow"></div>
+            <div className="terminal-button green"></div>
+          </div>
+          <span className="text-[11px] font-mono text-cyan-400">pjohn@security-ops:~</span>
+          <button
+            onClick={finish}
+            className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 hover:bg-cyan-950 text-cyan-400 border border-cyan-500/30 transition-colors"
+          >
+            SKIP
+          </button>
         </div>
         <div className="terminal-content">
           {lines.map((line, index) => {
             const isLastLine = index === lines.length - 1;
             const isComplete = lines.length === terminalLines.length;
-            const textClass = isLastLine && isComplete ? 'blink-final' : '';
+            const textClass = isLastLine && isComplete ? 'blink-final text-emerald-400 font-bold' : '';
             
             return (
               <div key={index} className="terminal-line">

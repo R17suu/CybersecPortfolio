@@ -1,140 +1,161 @@
 import { useState, useEffect } from 'react';
+import { FaShieldAlt, FaBars, FaTimes, FaFileAlt } from 'react-icons/fa';
 
-const middleLinks = [
+const navLinks = [
   { label: 'Home', href: '#home' },
-  { label: 'About Me', href: '#about' },
+  { label: 'About', href: '#about' },
+  { label: 'Certifications', href: '#certifications' },
   { label: 'Projects', href: '#projects' },
-  { label: 'Case Studies', href: '#case-study' },
-  { label: 'Blog', href: '#blog' },
-  { label: 'Learning Path', href: '#learning-path' },
+  { label: 'Contact', href: '#contact' },
 ];
 
 export default function Navbar() {
-  const [activeSection, setActiveSection] = useState('');
+  const [activeSection, setActiveSection] = useState('home');
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+      setScrolled(window.scrollY > 30);
 
-  useEffect(() => {
-    // Robust fallback: query sections on scroll/resize and pick the one near the viewport center
-    const computeActiveSection = () => {
-      const sections = document.querySelectorAll('section[id]');
-      const threshold = window.innerHeight * 0.45; // ~middle of viewport
-      let found = '';
-      sections.forEach((sec) => {
-        const rect = sec.getBoundingClientRect();
-        if (rect.top <= threshold && rect.bottom > threshold) {
-          found = '#' + sec.id;
+      const sections = ['home', 'about', 'certifications', 'projects', 'contact'];
+      const scrollPos = window.scrollY + 200;
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const el = document.getElementById(sections[i]);
+        if (el && el.offsetTop <= scrollPos) {
+          setActiveSection(sections[i]);
+          break;
         }
-      });
-      setActiveSection(found);
+      }
     };
 
-    // run on load
-    computeActiveSection();
-    window.addEventListener('scroll', computeActiveSection, { passive: true });
-    window.addEventListener('resize', computeActiveSection);
-
-    return () => {
-      window.removeEventListener('scroll', computeActiveSection);
-      window.removeEventListener('resize', computeActiveSection);
-    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const handleNavClick = (e, href) => {
     e.preventDefault();
     setMenuOpen(false);
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    const target = document.querySelector(href);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#0d0d0d] ${scrolled ? 'shadow-lg shadow-black/50' : ''
-        }`}
-    >
-      <div className="flex items-stretch transition-all duration-300 w-full h-[50px]">
-
-        {/* Logo Section (Left) */}
-        <div className="w-[20%] flex-shrink-0 flex items-center justify-center">
-          <a
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      scrolled 
+        ? 'py-3 bg-[#07090e]/85 backdrop-blur-md border-b border-cyan-500/15 shadow-lg shadow-black/40' 
+        : 'py-5 bg-transparent'
+    }`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between">
+          
+          {/* Logo / Brand */}
+          <a 
             href="#home"
-            onClick={(e) => {
-              e.preventDefault();
-              setActiveSection('#home');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-            className="text-[2rem] font-[900] uppercase tracking-[0.15em] text-white hover:text-[#00e5ff] transition-colors duration-300"
+            onClick={(e) => handleNavClick(e, '#home')}
+            className="flex items-center gap-2 group cursor-pointer"
           >
-            PJOHN
+            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-cyan-500/20 to-blue-600/20 border border-cyan-400/40 flex items-center justify-center text-cyan-400 group-hover:border-cyan-400 transition-colors shadow-[0_0_15px_rgba(0,229,255,0.2)]">
+              <FaShieldAlt className="text-base" />
+            </div>
+            <div className="flex flex-col">
+              <span className="font-heading font-black text-xl tracking-wider text-white group-hover:text-cyan-400 transition-colors flex items-center">
+                PJOHN<span className="text-cyan-400 animate-pulse">_</span>
+              </span>
+              <span className="font-mono text-[9px] uppercase tracking-widest text-slate-400 -mt-1">
+                IT & Sec Portfolio
+              </span>
+            </div>
           </a>
-        </div>
 
-        {/* Navigation Section (Right) */}
-        <div className="hidden md:flex flex-1 bg-[#1a1a1a] rounded-l-[40px] items-center justify-between px-20 lg:px-40 border-l border-accent/20" style={{ paddingLeft: '20px', paddingRight: '20px' }}>
-          <div className="flex flex-row gap-8 lg:gap-10">
-            {middleLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={(e) => handleNavClick(e, link.href)}
-                className={`text-[0.875rem] font-[700] tracking-[0.15em] uppercase transition-all duration-300 ${activeSection === link.href ? 'text-[#00e5ff] drop-shadow-[0_0_8px_rgba(0,229,255,0.4)]' : 'text-white hover:text-[#00e5ff] hover:drop-shadow-[0_0_6px_rgba(0,229,255,0.3)]'
+          {/* Desktop Nav Links */}
+          <nav className="hidden md:flex items-center gap-1 bg-[#0f1623]/80 border border-cyan-500/20 backdrop-blur-md rounded-full px-4 py-1.5 shadow-[0_0_20px_rgba(0,0,0,0.5)]">
+            {navLinks.map((link) => {
+              const id = link.href.replace('#', '');
+              const isActive = activeSection === id;
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href)}
+                  className={`relative px-4 py-1.5 text-xs font-mono font-medium tracking-wider uppercase transition-all duration-200 rounded-full ${
+                    isActive 
+                      ? 'text-cyan-300 bg-cyan-950/60 shadow-[0_0_12px_rgba(0,229,255,0.3)]' 
+                      : 'text-slate-300 hover:text-cyan-400 hover:bg-slate-800/40'
                   }`}
-              >
-                {link.label}
-              </a>
-            ))}
+                >
+                  {link.label}
+                  {isActive && (
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-[2px] bg-cyan-400 rounded-full shadow-[0_0_8px_#00e5ff]"></span>
+                  )}
+                </a>
+              );
+            })}
+          </nav>
+
+          {/* Desktop CTA Button */}
+          <div className="hidden md:flex items-center gap-3">
+            <a
+              href="/Colot_John-Pruds_Resume.pdf"
+              download="John_Pruds_Colot_Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-mono font-bold text-xs tracking-wider uppercase hover:shadow-[0_0_20px_rgba(0,229,255,0.5)] transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0"
+            >
+              <FaFileAlt className="text-xs" />
+              <span>Resume</span>
+            </a>
           </div>
 
-          <a
-            href="#contact"
-            onClick={(e) => handleNavClick(e, '#contact')}
-            className={`text-[0.875rem] font-[700] tracking-[0.15em] uppercase transition-all duration-300 ${activeSection === '#contact' ? 'text-[#00e5ff] drop-shadow-[0_0_8px_rgba(0,229,255,0.4)]' : 'text-white hover:text-[#00e5ff] hover:drop-shadow-[0_0_6px_rgba(0,229,255,0.3)]'
-              }`}
-          >
-            Contact Me
-          </a>
-        </div>
-
-        {/* Mobile Menu Button */}
-        <div className="flex-1 flex justify-end items-center md:hidden pr-8 bg-[#1a1a1a] rounded-l-[40px] border-l border-accent/20">
+          {/* Mobile Menu Button */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="flex flex-col gap-[0.375rem] bg-transparent border-none cursor-pointer p-2"
+            className="md:hidden w-10 h-10 rounded-lg bg-slate-900 border border-cyan-500/30 flex items-center justify-center text-cyan-400 hover:text-white transition-colors"
+            aria-label="Toggle navigation menu"
           >
-            <span className="w-[1.5rem] h-[0.125rem] bg-white block transition-all duration-300"></span>
-            <span className="w-[1.5rem] h-[0.125rem] bg-white block transition-all duration-300"></span>
-            <span className="w-[1.5rem] h-[0.125rem] bg-white block transition-all duration-300"></span>
+            {menuOpen ? <FaTimes size={18} /> : <FaBars size={18} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu Dropdown */}
-      <div
-        className={`md:hidden overflow-hidden transition-all duration-300 mx-auto max-w-7xl px-4 ${menuOpen ? 'max-h-64 opacity-100 pb-4' : 'max-h-0 opacity-0'
-          }`}
-      >
-        <div className="flex flex-col gap-4 bg-[#222222] p-4 rounded-2xl shadow-lg border-2 border-accent">
-          {[...middleLinks, { label: 'Contact Me', href: '#contact' }].map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={(e) => handleNavClick(e, link.href)}
-              className={`text-[0.875rem] font-[700] tracking-[0.15em] uppercase transition-colors duration-300 ${activeSection === link.href ? 'text-[#00e5ff]' : 'text-white hover:text-gray-300'
-                }`}
-            >
-              {link.label}
-            </a>
-          ))}
+      {/* Mobile Dropdown Menu */}
+      {menuOpen && (
+        <div className="md:hidden mt-3 mx-4 p-4 rounded-xl bg-[#0b101b] border border-cyan-500/30 shadow-2xl backdrop-blur-xl animate-modal">
+          <div className="flex flex-col gap-2">
+            {navLinks.map((link) => {
+              const id = link.href.replace('#', '');
+              const isActive = activeSection === id;
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href)}
+                  className={`px-4 py-2.5 rounded-lg font-mono text-sm uppercase tracking-wider transition-colors flex items-center justify-between ${
+                    isActive 
+                      ? 'text-cyan-400 bg-cyan-950/50 font-bold border-l-2 border-cyan-400' 
+                      : 'text-slate-300 hover:text-white hover:bg-slate-800/40'
+                  }`}
+                >
+                  <span>{link.label}</span>
+                  {isActive && <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>}
+                </a>
+              );
+            })}
+            <div className="pt-2 mt-1 border-t border-slate-800">
+              <a
+                href="/Colot_John-Pruds_Resume.pdf"
+                download="John_Pruds_Colot_Resume.pdf"
+                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg bg-cyan-500 text-slate-950 font-mono font-bold text-xs uppercase tracking-wider"
+              >
+                <FaFileAlt /> Download Resume
+              </a>
+            </div>
+          </div>
         </div>
-      </div>
-    </nav>
+      )}
+    </header>
   );
 }

@@ -4,16 +4,11 @@ import BackgroundAnimation from './components/BackgroundAnimation';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
-import Projects from './components/Projects';
 import Certifications from './components/Certifications';
-import Courses from './components/Courses';
+import Projects from './components/Projects';
 import CurrentFocus from './components/CurrentFocus';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import RecentCertifications from './components/RecentCertifications';
-import CaseStudy from './components/CaseStudy';
-import Blog from './components/Blog';
-import Badges from './components/Badges';
 
 function useScrollReveal() {
   const observerRef = useRef(null);
@@ -28,7 +23,7 @@ function useScrollReveal() {
           }
         });
       },
-      { threshold: 0.05 }
+      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
     );
 
     const observeAll = () => {
@@ -37,14 +32,11 @@ function useScrollReveal() {
       });
     };
 
-    // Observe initially
     observeAll();
 
-    // Re-observe whenever DOM changes
     const mutation = new MutationObserver(observeAll);
     mutation.observe(document.body, { childList: true, subtree: true });
 
-    // Also re-observe on scroll (fallback)
     const handleScroll = () => observeAll();
     window.addEventListener('scroll', handleScroll, { passive: true });
 
@@ -65,21 +57,23 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-primary">
+    <div className="min-h-screen bg-[#07090e] text-slate-100 relative selection:bg-cyan-400 selection:text-slate-950">
       {isLoading && <Preloader onLoadComplete={handleLoadComplete} />}
       <BackgroundAnimation />
       <Navbar />
-      <Hero />
-      <About />
-      <Projects />
-      <CaseStudy />
-      <Blog />
-      <Certifications />
-      <RecentCertifications />
-      <Badges />
-      <Courses />
-      <CurrentFocus />
-      <Contact />
+      <main className="relative z-10 space-y-28 sm:space-y-36 lg:space-y-44 pb-24 sm:pb-32">
+        <Hero />
+        <div className="section-divider" />
+        <About />
+        <div className="section-divider" />
+        <Certifications />
+        <div className="section-divider" />
+        <Projects />
+        <div className="section-divider" />
+        <CurrentFocus />
+        <div className="section-divider" />
+        <Contact />
+      </main>
       <Footer />
     </div>
   );

@@ -248,33 +248,38 @@ GitHub: https://github.com/R17suu
       {/* Project Details Modal */}
       {selectedProject && (
         <div
-          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-8"
+          className="fixed inset-0 z-[60] bg-black/90 backdrop-blur-md flex items-start justify-center px-4 pt-20 pb-4 sm:px-8 sm:pt-24 sm:pb-8"
           onClick={() => setSelectedProject(null)}
         >
           <div
-            className="relative w-full max-w-3xl max-h-[90vh] bg-[#0c111a] border-2 border-cyan-400/50 rounded-2xl shadow-[0_0_60px_rgba(0,229,255,0.25)] flex flex-col overflow-hidden animate-modal"
+            className="relative w-full max-w-3xl max-h-[calc(100vh-6rem)] sm:max-h-[calc(100vh-8rem)] bg-[#0c111a] border-2 border-cyan-400/50 rounded-2xl shadow-[0_0_60px_rgba(0,229,255,0.25)] flex flex-col overflow-hidden animate-modal"
             onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="project-details-title"
           >
             {/* Modal Header */}
             <div className="px-7 py-4.5 bg-[#07090e] border-b border-cyan-500/20 flex items-center justify-between">
               <div className="flex items-center gap-2.5">
                 <FaTerminal className="text-cyan-400 text-sm" />
                 <span className="font-mono text-xs uppercase tracking-wider text-cyan-400 font-bold">
-                  PROJECT SPECIFICATION // {selectedProject.tag}
+                  PROJECT DETAILS // {selectedProject.tag}
                 </span>
               </div>
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => downloadSpecs(selectedProject)}
                   className="px-3.5 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-mono font-bold flex items-center gap-1.5 transition-colors shadow-[0_0_12px_rgba(0,229,255,0.3)] cursor-pointer"
-                  title="Download Project Spec Document"
+                  title="Download project summary"
                 >
                   <FaDownload className="text-[10px]" />
-                  <span className="hidden sm:inline">Export Spec</span>
+                  <span className="hidden sm:inline">Download Summary</span>
                 </button>
                 <button
                   onClick={() => setSelectedProject(null)}
                   className="w-8 h-8 rounded-lg bg-slate-800 hover:bg-red-950 text-slate-300 hover:text-red-400 flex items-center justify-center transition-colors cursor-pointer"
+                  aria-label="Close project details"
+                  title="Close project details"
                 >
                   <FaTimes size={14} />
                 </button>
@@ -288,7 +293,7 @@ GitHub: https://github.com/R17suu
                 <span className="font-mono text-xs text-cyan-400 uppercase tracking-widest block mb-1.5 font-semibold">
                   {selectedProject.category}
                 </span>
-                <h3 className="font-heading font-extrabold text-2xl sm:text-3xl text-white">
+                <h3 id="project-details-title" className="font-heading font-extrabold text-2xl sm:text-3xl text-white">
                   {selectedProject.title}
                 </h3>
               </div>
@@ -296,7 +301,7 @@ GitHub: https://github.com/R17suu
               {/* Architecture Overview */}
               <div className="p-5 rounded-xl bg-slate-950 border border-cyan-500/20">
                 <h4 className="font-mono text-xs uppercase text-cyan-400 font-bold mb-2">
-                  System Architecture
+                  Project Overview
                 </h4>
                 <p className="text-xs sm:text-sm text-slate-200 leading-relaxed font-mono">
                   {selectedProject.architecture}
@@ -316,7 +321,7 @@ GitHub: https://github.com/R17suu
               {/* Key Features & Controls */}
               <div>
                 <h4 className="font-heading font-bold text-lg text-white mb-3.5 flex items-center gap-2">
-                  <span className="text-cyan-400">&gt;</span> Key Security &amp; Network Controls
+                  <span className="text-cyan-400">&gt;</span> Key Features &amp; Controls
                 </h4>
                 <div className="space-y-3">
                   {selectedProject.keyFeatures.map((feat, fIdx) => (
@@ -335,7 +340,7 @@ GitHub: https://github.com/R17suu
               {/* Technologies Used */}
               <div>
                 <h4 className="font-heading font-bold text-base text-white mb-3">
-                  Technologies &amp; Frameworks
+                  Tools &amp; Technologies
                 </h4>
                 <div className="flex flex-wrap gap-2.5">
                   {selectedProject.technologies.map((t, idx) => (

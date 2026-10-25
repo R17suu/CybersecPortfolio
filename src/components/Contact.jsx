@@ -92,10 +92,10 @@ export default function Contact() {
                     <div className="overflow-hidden">
                       <div className="text-[10px] text-slate-400 uppercase tracking-wider">Primary Email</div>
                       <a 
-                        href="mailto:colotjohn66@gmail.com" 
+                        href="mailto:2301104393@student.buksu.edu.ph" 
                         className="text-white hover:text-cyan-300 font-semibold truncate block transition-colors mt-0.5"
                       >
-                        colotjohn66@gmail.com
+                        2301104393@student.buksu.edu.ph
                       </a>
                     </div>
                   </div>

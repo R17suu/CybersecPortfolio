@@ -164,7 +164,7 @@ export default function Hero() {
             <FaGithub size={22} />
           </a>
           <a
-            href="mailto:colotjohn66@gmail.com"
+            href="mailto:2301104393@student.buksu.edu.ph"
             className="w-12 h-12 rounded-xl bg-[#0f1623] border border-cyan-500/30 flex items-center justify-center text-slate-300 hover:text-cyan-400 hover:border-cyan-400 hover:shadow-[0_0_15px_rgba(0,229,255,0.3)] transition-all duration-300"
             title="Email Directly"
             aria-label="Email John Pruds Colot"

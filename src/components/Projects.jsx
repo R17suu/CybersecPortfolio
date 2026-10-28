@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { 
-  FaNetworkWired, 
-  FaShieldAlt, 
-  FaServer, 
-  FaCalculator, 
-  FaTimes, 
-  FaExternalLinkAlt, 
-  FaCheck, 
+import {
+  FaNetworkWired,
+  FaShieldAlt,
+  FaServer,
+  FaCalculator,
+  FaTimes,
+  FaExternalLinkAlt,
+  FaCheck,
   FaDownload,
   FaTerminal
 } from 'react-icons/fa';
@@ -58,29 +58,29 @@ const projectsData = [
       { label: 'Outcome', value: 'Structured Risk Controls' }
     ]
   },
-  {
-    id: 3,
-    title: 'Penetration Testing & Threat Defense Homelab',
-    category: 'Practical Security Lab',
-    tag: 'Active Defensive Environment',
-    icon: FaServer,
-    status: 'ACTIVE HOMELAB ENVIRONMENT',
-    summary: 'Virtual lab environment designed for inspecting suspicious network traffic, testing intrusion signatures, and practicing defensive hardening.',
-    architecture: 'Segmented virtual networks utilizing pfSense as gateway firewall, Kali Linux for security audits, and vulnerable targets for detection testing.',
-    technologies: ['Kali Linux', 'pfSense Firewall', 'Snort IDS/IPS', 'Wireshark', 'VirtualBox', 'Metasploitable'],
-    keyFeatures: [
-      'Configured pfSense virtual firewall with isolated WAN, LAN, and DMZ network segments',
-      'Captured and analyzed raw network packets using Wireshark to identify reconnaissance scans and anomalous traffic',
-      'Configured intrusion detection signatures to trigger alerts on unauthorized port scanning',
-      'Documented remediation steps for hardening SSH, disabling insecure legacy protocols, and enforcing key auth',
-    ],
-    technicalHighlights: [
-      { label: 'Hypervisor', value: 'VirtualBox / KVM' },
-      { label: 'Firewall', value: 'pfSense Virtual Router' },
-      { label: 'Inspection', value: 'Wireshark & Snort' },
-      { label: 'Lab Isolation', value: 'Strict Host-Only DMZ' }
-    ]
-  },
+  // {
+  //   id: 3,
+  //   title: 'Penetration Testing & Threat Defense Homelab',
+  //   category: 'Practical Security Lab',
+  //   tag: 'Active Defensive Environment',
+  //   icon: FaServer,
+  //   status: 'ACTIVE HOMELAB ENVIRONMENT',
+  //   summary: 'Virtual lab environment designed for inspecting suspicious network traffic, testing intrusion signatures, and practicing defensive hardening.',
+  //   architecture: 'Segmented virtual networks utilizing pfSense as gateway firewall, Kali Linux for security audits, and vulnerable targets for detection testing.',
+  //   technologies: ['Kali Linux', 'pfSense Firewall', 'Snort IDS/IPS', 'Wireshark', 'VirtualBox', 'Metasploitable'],
+  //   keyFeatures: [
+  //     'Configured pfSense virtual firewall with isolated WAN, LAN, and DMZ network segments',
+  //     'Captured and analyzed raw network packets using Wireshark to identify reconnaissance scans and anomalous traffic',
+  //     'Configured intrusion detection signatures to trigger alerts on unauthorized port scanning',
+  //     'Documented remediation steps for hardening SSH, disabling insecure legacy protocols, and enforcing key auth',
+  //   ],
+  //   technicalHighlights: [
+  //     { label: 'Hypervisor', value: 'VirtualBox / KVM' },
+  //     { label: 'Firewall', value: 'pfSense Virtual Router' },
+  //     { label: 'Inspection', value: 'Wireshark & Snort' },
+  //     { label: 'Lab Isolation', value: 'Strict Host-Only DMZ' }
+  //   ]
+  // },
   {
     id: 4,
     title: 'Hierarchical VLSM IPv4 Addressing Architecture',
@@ -151,7 +151,7 @@ GitHub: https://github.com/R17suu
   return (
     <section id="projects" className="py-12 sm:py-20 px-4 sm:px-6 lg:px-8 relative">
       <div className="max-w-7xl mx-auto w-full">
-        
+
         {/* Section Header */}
         <div className="text-center mb-18 sm:mb-24 scroll-fade-in">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-400 font-mono text-xs uppercase tracking-widest mb-4">
@@ -224,11 +224,6 @@ GitHub: https://github.com/R17suu
                         {tech}
                       </span>
                     ))}
-                    {project.technologies.length > 4 && (
-                      <span className="px-2.5 py-1 rounded-md text-xs font-mono bg-slate-800 text-slate-400">
-                        +{project.technologies.length - 4} more
-                      </span>
-                    )}
                   </div>
 
                   {/* Action Link */}
@@ -288,7 +283,7 @@ GitHub: https://github.com/R17suu
 
             {/* Modal Content */}
             <div className="p-7 sm:p-9 overflow-y-auto space-y-7">
-              
+
               <div>
                 <span className="font-mono text-xs text-cyan-400 uppercase tracking-widest block mb-1.5 font-semibold">
                   {selectedProject.category}
